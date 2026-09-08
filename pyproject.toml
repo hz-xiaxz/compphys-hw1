@@ -1,0 +1,11 @@
+[project]
+name = "compphys-hw1"
+version = "0.1.0"
+description = "Computational Physics Homework 1: differentiation, quadrature, and the BAO peak"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.9",
+    "numpy>=2.0",
+    "scienceplots>=2.1",
+    "scipy>=1.13",
+]

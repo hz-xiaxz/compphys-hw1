@@ -1,0 +1,7 @@
+exact I = 0.6321205588
+    method order    N_best    eps_min  digits
+  midpoint     2     65536   7.98e-08     7.1
+ trapezoid     2       512   1.45e-08     7.8
+   Simpson     4        32   1.45e-08     7.8
+
+single-precision eps_m = 1.19e-07
