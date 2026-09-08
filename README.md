@@ -6,9 +6,14 @@ peak in the matter correlation function.
 ## Running
 
 The project uses [uv](https://docs.astral.sh/uv/). Figures use
-[SciencePlots](https://github.com/garrettj403/SciencePlots); real LaTeX text
-rendering is used automatically when `latex` and `dvipng` are installed, and
-falls back to matplotlib mathtext otherwise.
+[SciencePlots](https://github.com/garrettj403/SciencePlots), and all figure text
+is typeset by LaTeX. `plotstyle.py` checks for `latex`, `dvipng`, and the style
+files SciencePlots needs, and falls back to matplotlib mathtext if any is
+missing. On Arch the requirements come from:
+
+```
+paru -S texlive-bin texlive-latexextra texlive-mathscience
+```
 
 ```
 uv sync

@@ -23,7 +23,12 @@ def _latex_available():
 
 
 def use_science():
-    styles = ["science", "grid"] if _latex_available() else ["science", "no-latex", "grid"]
+    if _latex_available():
+        styles = ["science", "grid"]
+    else:
+        styles = ["science", "no-latex", "grid"]
+        print("plotstyle: no LaTeX toolchain found, falling back to mathtext. "
+              "On Arch: paru -S texlive-bin texlive-latexextra texlive-mathscience")
     plt.style.use(styles)
     plt.rcParams.update({"figure.dpi": 150, "savefig.bbox": "tight"})
     return styles
