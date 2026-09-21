@@ -22,7 +22,9 @@ uv run python problem2.py
 uv run python problem3.py
 ```
 
-Figures are written to `figs/`.
+Figures are written to `figs/`. The homework writeup (Summary / Methods /
+Results / Code) is [`writeup/hw1_writeup.pdf`](writeup/hw1_writeup.pdf), built
+from `writeup/hw1_writeup.tex` with `latexmk -pdf`.
 
 | file | contents |
 | --- | --- |
@@ -37,8 +39,9 @@ Figures are written to `figs/`.
 ## Problem 1 — differentiation of cos(x) and exp(x) at x = 0.1, 10
 
 All arithmetic inside the difference formulas is `float32`, so the machine
-epsilon is 1.19e-07. Step sizes are powers of two, which are exactly
-representable, so h itself contributes no rounding. The thin lines in the figure
+epsilon is 1.19e-07. Step sizes are sampled four per octave from 2^-27 to 2^0.75;
+each h is rounded to `float32` and the same rounded value is used in the
+numerator and the denominator. The thin lines in the figure
 are the raw point-to-point results; the thick lines are the median in log-h bins,
 which is the trend under the roundoff noise.
 
@@ -100,8 +103,14 @@ roundoff accumulates the way it would in a hand-written loop.
   N ~ 30, the second-order rules at N ~ few hundred.
 * **Large N: roundoff growth.** Beyond N ~ 1e5 the error rises again. The
   reference line eps_m * sqrt(N) is the random-walk expectation for accumulating
-  N rounding errors; the measured growth is somewhat steeper because the node
-  positions t = a + i*h also lose precision as i grows in float32.
+  N rounding errors; the measured growth is steeper because the float32 running
+  sum grows to order N while each term is order one, so the rounding error per
+  addition grows with the partial sum, and because the integrand varies slowly
+  consecutive additions round almost identically, so the errors keep the same
+  sign over runs of hundreds to 1e6 terms and add coherently instead of cancelling.
+  (N is a power of two, so
+  h and the nodes i*h are exact in float32; summing the same float32 function
+  values in float64 keeps the error at 1e-8 up to N = 4e6.)
 * **Best achievable accuracy is the same for all three methods** at roughly
   1e-8 to 1e-7 relative error, about seven significant digits. Simpson simply
   gets there with far fewer function evaluations.

@@ -45,8 +45,9 @@ METHODS = [("forward", forward, 1), ("central", central, 2),
            ("extrapolated", extrapolated, 4)]
 COLORS = {"forward": "C0", "central": "C2", "extrapolated": "C1"}
 
-# Powers of two are exactly representable, so h itself carries no rounding.
-h = 2.0 ** np.arange(-27.0, 1.0, 0.25)
+# Four samples per octave.  Each h is rounded to float32 inside the difference
+# formulas, and the same rounded value is used in numerator and denominator.
+h =2.0 ** np.arange(-27.0, 1.0, 0.25)
 
 
 def binned_median(x, y, nbins=28):
